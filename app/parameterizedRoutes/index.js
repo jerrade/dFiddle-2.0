@@ -20,7 +20,7 @@ define(['plugins/router', 'durandal/system', 'global', 'knockout'], function( ro
             });
         },
         binding: function() {
-            system.log('Lifecycle : binding : hello/index');
+            system.log('Lifecycle : binding : parameterized-routes/index');
             return { cacheViews: false }; //cancels view caching for this module, allowing the triggering of the detached callback
         }
     };

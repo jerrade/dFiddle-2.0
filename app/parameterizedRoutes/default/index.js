@@ -9,23 +9,23 @@ define(['durandal/app', 'durandal/system', 'knockout'], function( app, system, k
         selectedUser: ko.observable(),
 
         activate: function() {
-            system.log('Lifecycle : activate : hello');
+            system.log('Lifecycle : activate : parameterized-routes');
         },
         binding: function() {
-            system.log('Lifecycle : binding : hello');
+            system.log('Lifecycle : binding : parameterized-routes');
             return { cacheViews: false }; //cancels view caching for this module, allowing the triggering of the detached callback
         },
         bindingComplete: function() {
-            system.log('Lifecycle : bindingComplete : hello');
+            system.log('Lifecycle : bindingComplete : parameterized-routes');
         },
         attached: function( view, parent ) {
-            system.log('Lifecycle : attached : hello');
+            system.log('Lifecycle : attached : parameterized-routes');
         },
         compositionComplete: function( view ) {
-            system.log('Lifecycle : compositionComplete : hello');
+            system.log('Lifecycle : compositionComplete : parameterized-routes');
         },
         detached: function( view ) {
-            system.log('Lifecycle : detached : hello');
+            system.log('Lifecycle : detached : parameterized-routes');
         }
     };
 });
