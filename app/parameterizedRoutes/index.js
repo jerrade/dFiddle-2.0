@@ -4,7 +4,7 @@ define(['plugins/router', 'durandal/system', 'global', 'knockout'], function( ro
           moduleId: 'parameterizedRoutes',
           route: 'parameterized-routes'
       }).map([
-          {route: ['', 'default'], moduleId: 'default/index', title: 'Hello World', type: 'intro', nav: true}//,
+          {route: ['', 'default'], moduleId: 'default/index', title: 'Parameterized Routes', type: 'intro', nav: true}//,
           // {route: 'dFiddle', moduleId: 'dFiddle/index', title: 'Hello World', type: 'fiddle', nav: true}
       ]).buildNavigationModel();
       
