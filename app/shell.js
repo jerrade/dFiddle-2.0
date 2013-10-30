@@ -13,15 +13,16 @@
         activate: function () {
             router.map([
                 { route: '', moduleId: 'hello/index', title: 'Hello World' },
-                { route: 'hello*details', hash: '#hello', moduleId: 'hello/index', title: 'Hello World', nav: 1 },
-                { route: 'view-composition*details', hash:'#view-composition', moduleId: 'viewComposition/index', title: 'View Composition', nav: true },
-                { route: 'modal*details', hash: '#modal', moduleId: 'modal/index', title: 'Modal Dialogs', nav: 3 },
-                { route: 'event-aggregator*details', hash: '#event-aggregator', moduleId: 'eventAggregator/index', title: 'Events', nav: 2 },
-                { route: 'widgets*details', hash:'#widgets',  moduleId: 'widgets/index', title: 'Widgets', nav: true },
-                { route: 'master-detail*details', hash: '#master-detail', moduleId: 'masterDetail/index', title: 'Master Detail', nav: true },
-                { route: 'knockout-samples*details', hash: '#knockout-samples', moduleId: 'ko/index', title: 'Knockout Samples', nav: true },
-                { route: 'extras*details', hash: '#extras', moduleId: 'extras/index', title: 'Extras', nav: true,  admin: true  },
-                { route: 'so*details', hash: '#so', moduleId: 'so/index', title: 'so', nav: true }
+                { route: 'parameterized-routes*details', hash: '#parameterized-routes', moduleId: 'parameterizedRoutes/index', title: 'Parameterized Routes', nav: 1 }
+                // { route: 'hello*details', hash: '#hello', moduleId: 'hello/index', title: 'Hello World', nav: 1 },
+                // { route: 'view-composition*details', hash:'#view-composition', moduleId: 'viewComposition/index', title: 'View Composition', nav: true },
+                // { route: 'modal*details', hash: '#modal', moduleId: 'modal/index', title: 'Modal Dialogs', nav: 3 },
+                // { route: 'event-aggregator*details', hash: '#event-aggregator', moduleId: 'eventAggregator/index', title: 'Events', nav: 2 },
+                // { route: 'widgets*details', hash:'#widgets',  moduleId: 'widgets/index', title: 'Widgets', nav: true },
+                // { route: 'master-detail*details', hash: '#master-detail', moduleId: 'masterDetail/index', title: 'Master Detail', nav: true },
+                // { route: 'knockout-samples*details', hash: '#knockout-samples', moduleId: 'ko/index', title: 'Knockout Samples', nav: true },
+                // { route: 'extras*details', hash: '#extras', moduleId: 'extras/index', title: 'Extras', nav: true,  admin: true  },
+                // { route: 'so*details', hash: '#so', moduleId: 'so/index', title: 'so', nav: true }
             ]).buildNavigationModel();
 
             return router.activate();
