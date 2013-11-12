@@ -1,4 +1,4 @@
-define(['services/logger', 'dataservice', 'viewmodels/nav'], function (logger, dataservice, nav) {
+define(['knockout','services/logger', 'dataservice', 'viewmodels/nav'], function (ko,logger, dataservice, nav) {
     var dashboard = {
         fullName: ko.observable(),
         hourlyUnsubmitted: ko.observableArray()

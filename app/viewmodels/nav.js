@@ -1,4 +1,4 @@
-define(['services/logger', 'plugins/router', 'dataservice'], function (logger, router, dataservice) {
+define(['knockout','services/logger', 'plugins/router', 'dataservice'], function (ko,logger, router, dataservice) {
     var visibleTabs = ko.computed({
         read: function () {
             /* router.navigationModel contains a list of tabs and whether they are visible or not.*/
