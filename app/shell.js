@@ -1,4 +1,4 @@
-﻿define(['knockout', 'plugins/router'], function (ko, router) {
+﻿define(['knockout', 'durandal/system', 'plugins/router', 'dataservice', 'models/model', 'viewmodels/nav'], function (ko, system, router, dataservice, model, nav) {
     var visibleTabs = ko.computed({
             read: function () {
                 /* shell.authorizedTabs contains a list of tabs and whether they are visible or not.*/
