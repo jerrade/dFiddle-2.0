@@ -1,4 +1,4 @@
-﻿define(['plugins/router'], function (router) {
+﻿define(['knockout', 'plugins/router'], function (ko, router) {
     var visibleTabs = ko.computed({
             read: function () {
                 /* shell.authorizedTabs contains a list of tabs and whether they are visible or not.*/
