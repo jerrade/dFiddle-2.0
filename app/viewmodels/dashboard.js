@@ -1,4 +1,4 @@
-define(['knockout','services/logger', 'dataservice', 'viewmodels/nav'], function (ko,logger, dataservice, nav) {
+define(['knockout', 'dataservice', 'viewmodels/nav'], function (ko, dataservice, nav) {
     var dashboard = {
         fullName: ko.observable(),
         hourlyUnsubmitted: ko.observableArray()
@@ -15,7 +15,7 @@ define(['knockout','services/logger', 'dataservice', 'viewmodels/nav'], function
     return vm;
 
     function activate(username) {
-        logger.log('Dashboard View Activated', null, 'dashboard', true);
+        console.log('Dashboard View Activated');
         //vm.username = nav.selectedImpersonateEmployee().Username;        
         return refresh(username);
     }

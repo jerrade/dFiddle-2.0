@@ -1,4 +1,4 @@
-define(['knockout','services/logger', 'plugins/router', 'dataservice'], function (ko,logger, router, dataservice) {
+define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, dataservice) {
     var visibleTabs = ko.computed({
         read: function () {
             /* router.navigationModel contains a list of tabs and whether they are visible or not.*/
@@ -36,7 +36,7 @@ define(['knockout','services/logger', 'plugins/router', 'dataservice'], function
 
     //#region Internal Methods
     function activate(context) {
-        logger.log('nav View Activated', null, 'nav', true);
+        console.log('Nav View Activated');
         if (vm.impersonateUsername == undefined)
             vm.impersonateUsername = getUsernameFromWindowLocation();
         if (vm.impersonateUsername == '')
