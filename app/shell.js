@@ -1,8 +1,26 @@
 ﻿define(['plugins/router'], function (router) {
+    var visibleTabs = ko.computed({
+            read: function () {
+                /* shell.authorizedTabs contains a list of tabs and whether they are visible or not.*/
+                var tabIsVisible = true;                
+                return ko.utils.arrayFilter(router.navigationModel(), function (item) {
+                        ko.utils.arrayForEach(shell.tabs(), function (tab) {
+                            if (item.title == tab.TabName())
+                                tabIsVisible = tab.Visible();
+                        });
+                    if(shell.selectedImpersonateEmployee() != undefined)
+                        item.hash = '#' + shell.selectedImpersonateEmployee().Username + item.hash.substr(item.hash.indexOf('/'));
+                    return tabIsVisible;
+                })
+            },
+            owner: this,
+            deferEvaluation: true
+        });
+
+    var pageDetail = {};
 
     var shell = {
             activate: activate,
-            compositionComplete: compositionComplete,
             router: router,
             waitMessage: system.waitMessage,
             tabs: ko.observableArray(),
@@ -10,7 +28,6 @@
             loggedInUsername: $('#LoggedInUsername').val(),
             impersonateUsername: undefined,
             fullName: ko.observable(),
-            //authorizedTabs: ko.observableArray()
             pageDetail: pageDetail,
             impersonableEmployees: ko.observableArray(),
             canImpersonate: ko.observable(),
