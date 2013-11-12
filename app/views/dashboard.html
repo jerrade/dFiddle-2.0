@@ -1,0 +1,11 @@
+<section>
+    <h2 class="page-title" data-bind="text: title"></h2>
+    <section data-bind:"visible: dashboard.hourlyUnsubmitted().length != 0">The following time sheets have not yet been submitted:</section>
+    <section>
+        <ul data-bind="foreach: dashboard.hourlyUnsubmitted" class="unstyled" style="margin-left:20px">
+            <li>
+                <a data-bind="attr: { href: '#' + $parent.selectedEmployee().Username + '/myhourly/'+DateHash() }, html: DisplayValue"></a> 
+            </li>
+        </ul>
+    </section>
+</section>

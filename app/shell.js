@@ -1,31 +1,68 @@
 ﻿define(['plugins/router'], function (router) {
 
-    // Redirecting from / to first route
-    router.guardRoute = function(routeInfo, params, instance){
-        if (params.fragment === ''){
-            return routeInfo.router.routes[0].hash;
-        }
-        return true;
-    };
+    var shell = {
+            activate: activate,
+            compositionComplete: compositionComplete,
+            router: router,
+            waitMessage: system.waitMessage,
+            tabs: ko.observableArray(),
+            visibleTabs: visibleTabs,
+            loggedInUsername: $('#LoggedInUsername').val(),
+            impersonateUsername: undefined,
+            fullName: ko.observable(),
+            //authorizedTabs: ko.observableArray()
+            pageDetail: pageDetail,
+            impersonableEmployees: ko.observableArray(),
+            canImpersonate: ko.observable(),
+            selectedImpersonateEmployee: ko.observable(),
+            includeInactiveEmployees: ko.observable(false)
+        };
+        
+    return shell;
 
-    return {
-        router: router,
-        activate: function () {
-            router.map([
-                { route: '', moduleId: 'hello/index', title: 'Hello World' },                
-                { route: 'hello*details', hash: '#hello', moduleId: 'hello/index', title: 'Hello World', nav: 1 },
-                { route: 'parameterized-routes*details', hash: '#parameterized-routes', moduleId: 'parameterizedRoutes/index', title: 'Parameterized Routes', nav: 2 }
-                // { route: 'view-composition*details', hash:'#view-composition', moduleId: 'viewComposition/index', title: 'View Composition', nav: true },
-                // { route: 'modal*details', hash: '#modal', moduleId: 'modal/index', title: 'Modal Dialogs', nav: 3 },
-                // { route: 'event-aggregator*details', hash: '#event-aggregator', moduleId: 'eventAggregator/index', title: 'Events', nav: 2 },
-                // { route: 'widgets*details', hash:'#widgets',  moduleId: 'widgets/index', title: 'Widgets', nav: true },
-                // { route: 'master-detail*details', hash: '#master-detail', moduleId: 'masterDetail/index', title: 'Master Detail', nav: true },
-                // { route: 'knockout-samples*details', hash: '#knockout-samples', moduleId: 'ko/index', title: 'Knockout Samples', nav: true },
-                // { route: 'extras*details', hash: '#extras', moduleId: 'extras/index', title: 'Extras', nav: true,  admin: true  },
-                // { route: 'so*details', hash: '#so', moduleId: 'so/index', title: 'so', nav: true }
-            ]).buildNavigationModel();
+    function activate(context) {            
+        router.guardRoute = function (routeInfo, params, instance) {
+            /* Default to the dashboard if nothing else is specified. */
+            if (params.config.route == ':username') {
+                return params.fragment + '/dashboard';
+            }
+            /* The login view will set a cookie with the hash part of the route. */
+            var hash = $.cookie('hash');
+            if (hash != null) {
+                $.removeCookie('hash', { path: '/' });
+                $.removeCookie('username', { path: '/' });
+                return hash;
+            }
+            return true;
+        };
 
-            return router.activate();
-        }
-    };
+        return boot();
+    }
+
+    function boot() {
+        log('Electronic Time Sheets Loaded!', null, true);          
+
+        /* Need to set the impersonateUsername before getting the page details for when a user
+        enters a url with a username that isn't their own.  I hate having to extract the username
+        from window.location, but there doesn't seem to be any way to access it via the router object.  */
+        if(shell.impersonateUsername == undefined)
+            shell.impersonateUsername = getUsernameFromWindowLocation();
+        if (shell.impersonateUsername == '')
+            shell.impersonateUsername = $.cookie('username');
+
+        nav.activate();
+
+        var routes = [
+                { route: '', moduleId: 'dashboard', title: 'Dashboard', nav: false },
+                { route: ':username', moduleId: 'dashboard', title: 'Dashboard', nav: false },
+                { route: ':username/dashboard', moduleId: 'dashboard', title: 'Dashboard', nav: true },
+                { route: ':username/myhourly', moduleId: 'myhourly', title: 'My Hourly Timesheet', nav: true },
+                { route: ':username/myhourly/:date', moduleId: 'myhourly', title: 'My Hourly Timesheet', nav: false }
+        ];
+
+        return router.makeRelative({ moduleId: 'viewmodels' })
+            .map(routes)
+            .buildNavigationModel()
+            .activate();
+    }
 });
