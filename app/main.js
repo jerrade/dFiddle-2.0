@@ -11,8 +11,7 @@
         'jquery': [
             '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
             '../lib/jquery/jquery-1.9.1.min'
-        ],
-        'jquery.mockjax': 'cdnjs.cloudflare.com/ajax/libs/jquery-mockjax/1.5.2/jquery.mockjax.js'
+        ]
     }
 });
 
