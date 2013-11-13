@@ -89,7 +89,7 @@
     }
 
     $.mockjax({        
-        url: '/api/timesheetapi/pagedetail?username=test',
+        url: 'http://jerrade.github.io/api/timesheetapi/pagedetail?username=test',
         responseTime: 750,
         responseText: {
             "CanImpersonate":true,
