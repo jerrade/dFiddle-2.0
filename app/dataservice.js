@@ -1,4 +1,4 @@
-define(['services/logger', 'durandal/system', 'models/model'], function (logger, system, model) {
+define(['durandal/system', 'models/model'], function (system, model) {
     var getImpersonableEmployees = function (listObservable) {
         var options = {
             url: '/api/timesheetapi/impersonableemployees',
