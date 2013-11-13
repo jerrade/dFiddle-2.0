@@ -58,8 +58,6 @@
         from window.location, but there doesn't seem to be any way to access it via the router object.  */
         if(shell.impersonateUsername == undefined)
             shell.impersonateUsername = getUsernameFromWindowLocation();
-        if (shell.impersonateUsername == '')
-            shell.impersonateUsername = $.cookie('username');
 
         nav.activate();
 
@@ -87,24 +85,4 @@
 
         return username;
     }
-
-    $.mockjax({        
-        url: 'http://jerrade.github.io/api/timesheetapi/pagedetail?username=test',
-        responseTime: 750,
-        responseText: {
-            "CanImpersonate":true,
-            "ImpersonableEmployees":[{"ID":123456,"Username":"test","FullName":"test, test"},
-                                    {"ID":123457,"Username":"boba","FullName":"Anderson, Bob"},
-                                    {"ID":123458,"Username":"chrisc","FullName":"Cooper, Chris"}]
-        }
-    });
-
-    $.mockjax({
-        url: '/api/timesheetapi/dashboard?username=test',
-        responseTime: 750,
-        responseText: {
-            "HourlyUnsubmitted":[],
-            "FullName":"Test Test"
-        }
-    });
 });

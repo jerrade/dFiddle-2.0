@@ -1,4 +1,4 @@
-define(function () {
+define(['knockout','knockout.mapping'],function (ko, komapping) {
     var MainTab = function (dto) {
         return mapToObservable(dto);
     }
@@ -17,7 +17,7 @@ define(function () {
                 'copy': ["ID", "Username", "FullName"]
             }
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
         }
     }
 
@@ -32,7 +32,7 @@ define(function () {
                 }
             }
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
         }
     }
 
@@ -41,7 +41,7 @@ define(function () {
             var mapping = {                
             }
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
         }
     }
 
@@ -75,7 +75,7 @@ define(function () {
                 }
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             this.toJSON = function () {
                 var copy = ko.toJS(this);
@@ -259,7 +259,7 @@ define(function () {
                 }
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             this.toJSON = function () {
                 var copy = ko.toJS(this);
@@ -290,7 +290,7 @@ define(function () {
                 'copy': ["GrantName", "JobCode", "JobHourlyId", "DayOfWeek", "InCurrentPeriod", "IsEffective", "HolidayName"]
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             this.toJSON = function () {
                 var copy = ko.toJS(this);
@@ -325,7 +325,7 @@ define(function () {
                 }
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             this.toJSON = function () {
                 var copy = ko.toJS(this);
@@ -353,7 +353,7 @@ define(function () {
                 'copy': ["HoursType", "HoursTypeName"]
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             /* The total of hours for the time off type. */
             this.Total = ko.computed(
@@ -390,7 +390,7 @@ define(function () {
                 'copy': ["EmployeeHourlyId", "DayOfWeek", "HoursType", "DayDate", "InCurrentPeriod"]
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
 
             this.toJSON = function () {
                 var copy = ko.toJS(this);
@@ -415,7 +415,7 @@ define(function () {
                 'copy': ["SupervisorName"]
             };
 
-            ko.mapping.fromJS(dto, mapping, this);
+            komapping.fromJS(dto, mapping, this);
             
             this.ApprovalText = ko.computed(function () {
                 if (this.DateApproved() != null) {

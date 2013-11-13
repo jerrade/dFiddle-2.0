@@ -22,9 +22,9 @@ define(['knockout', 'dataservice', 'viewmodels/nav'], function (ko, dataservice,
 
     function refresh(username) {
         var d = dataservice.getDashboard(nav.impersonateUsername, dashboard).then(function () {
-            if (ko.dataFor(document.getElementById("mainHeader")) == undefined) {
-                ko.applyBindings(dashboard, document.getElementById("mainHeader"));
-            }
+            //if (ko.dataFor(document.getElementById("mainHeader")) == undefined) {
+            //    ko.applyBindings(dashboard, document.getElementById("mainHeader"));
+            //}
         });        
         return d;
     }
