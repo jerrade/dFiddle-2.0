@@ -57,7 +57,7 @@
     }
 
     function boot() {
-        log('Electronic Time Sheets Loaded!', null, true);          
+        console.log('Electronic Time Sheets Loaded!', null, true);          
 
         /* Need to set the impersonateUsername before getting the page details for when a user
         enters a url with a username that isn't their own.  I hate having to extract the username
