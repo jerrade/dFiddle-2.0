@@ -41,7 +41,7 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
             vm.impersonateUsername = getUsernameFromWindowLocation();
         
         return dataservice.getPageDetailForEmployee(vm.loggedInUsername, vm).then(function () {
-            console.log("page details retrieved");
+            console.log("Page details retrieved");
 
             ko.utils.arrayForEach(vm.impersonableEmployees(), function (item) {
                 if (item.Username == vm.impersonateUsername) {
@@ -58,6 +58,7 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
                 });
             });
         });
+        console.log('Nav View Activation Complete');
     }
 
     function getUsernameFromWindowLocation() {
