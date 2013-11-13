@@ -88,12 +88,23 @@
         return username;
     }
 
-    $.mockjax({
+    $.mockjax({        
         url: '/api/timesheetapi/pagedetail?username=test',
         responseTime: 750,
         responseText: {
-            status: 'success',
-            fortune: 'Are you a turtle?'
+            "CanImpersonate":true,
+            "ImpersonableEmployees":[{"ID":123456,"Username":"test","FullName":"test, test"},
+                                    {"ID":123457,"Username":"boba","FullName":"Anderson, Bob"},
+                                    {"ID":123458,"Username":"chrisc","FullName":"Cooper, Chris"}]
+        }
+    });
+
+    $.mockjax({
+        url: '/api/timesheetapi/dashboard?username=test',
+        responseTime: 750,
+        responseText: {
+            "HourlyUnsubmitted":[],
+            "FullName":"Test Test"
         }
     });
 });
