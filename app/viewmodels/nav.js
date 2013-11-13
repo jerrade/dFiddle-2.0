@@ -58,7 +58,6 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
                 });
             });
         });
-        console.log('Nav View Activation Complete');
     }
 
     function getUsernameFromWindowLocation() {

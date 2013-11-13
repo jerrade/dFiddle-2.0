@@ -21,8 +21,7 @@
             exports: 'jQuery.fn.mockjax'
         } ,
         'knockout.mapping': {
-            deps: ['knockout'],
-            exports: 'knockout.fn.mapping'
+            deps: ['knockout']
         }           
     }
 });

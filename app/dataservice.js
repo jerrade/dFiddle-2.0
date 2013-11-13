@@ -1,32 +1,4 @@
-define(['durandal/system', 'models/model'], function (system, model) {
-    var getImpersonableEmployees = function (listObservable) {
-        var options = {
-            url: '/api/timesheetapi/impersonableemployees',
-            type: 'GET',
-            dataType: 'json'
-        };
-
-        system.waitMessage("Getting employees...");
-
-        return $.ajax(options)
-            .then(querySucceeded)
-            .fail(queryFailed);
-
-        function querySucceeded(data) {
-            var items = [];
-            data.forEach(function (item) {
-                var h = new model.ImpersonableEmployee(item);
-                items.push(h);
-            });
-            listObservable(items);
-        }
-
-        function queryFailed(jqXHR, textStatus) {
-            var msg = 'Error getting data. ' + textStatus;
-            console.log(msg);
-        }
-    };
-
+define(['durandal/system', 'models/model'], function (system, model) {    
     var getTabsForEmployee = function (username, listObservable) {
         var options = {
             url: '/api/timesheetapi/tabs?username=' + username,
@@ -117,66 +89,10 @@ define(['durandal/system', 'models/model'], function (system, model) {
         }
     };
 
-    var getHourlyListForEmployee = function (username, listObservable) {       
-        var options = {
-            url: '/api/timesheetapi/hourlylistforemployee?username=' + username,
-            type: 'GET',
-            dataType: 'json'
-        };
-
-        system.waitMessage("Getting time sheets...");
-
-        return $.ajax(options)
-            .then(querySucceeded)
-            .fail(queryFailed);
-
-        function querySucceeded(data) {
-            //var dashboard = {};
-
-            var items = [];
-            data.forEach(function (item) {
-                var h = new model.HourlyPartialForDropdown(item);
-                items.push(h);
-            });
-            listObservable(items);
-        }
-
-        function queryFailed(jqXHR, textStatus) {
-            var msg = 'Error getting data. ' + textStatus;
-            console.log(msg);
-        }
-    };
-
-    var getHourlyTimesheet = function (username, dateHash, timesheetObservable) {
-        var options = {
-            url: '/api/timesheetapi/hourlytimesheet?username=' + username + '&dateHash=' + dateHash,
-            type: 'GET',
-            dataType: 'json'
-        };
-
-        system.waitMessage("Getting time sheet...");
-
-        return $.ajax(options)
-            .then(querySucceeded)
-            .fail(queryFailed);
-
-        function querySucceeded(data) {
-            timesheetObservable.hourlyTimesheet(new model.HourlyTimesheet(data));
-        }
-
-        function queryFailed(jqXHR, textStatus) {
-            var msg = 'Error getting data. ' + textStatus;
-            console.log(msg);
-        }
-    };
-
     var dataservice = {
-        getImpersonableEmployees: getImpersonableEmployees,
         getTabsForEmployee: getTabsForEmployee,
         getPageDetailForEmployee: getPageDetailForEmployee,
-        getDashboard: getDashboard,
-        getHourlyListForEmployee: getHourlyListForEmployee,
-        getHourlyTimesheet: getHourlyTimesheet,
+        getDashboard: getDashboard
     };
 
     return dataservice;
