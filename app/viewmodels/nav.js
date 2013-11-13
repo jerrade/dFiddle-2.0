@@ -39,10 +39,7 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         console.log('Nav View Activated');
         if (vm.impersonateUsername == undefined)
             vm.impersonateUsername = getUsernameFromWindowLocation();
-        if (vm.impersonateUsername == '')
-            vm.impersonateUsername = $.cookie('username');
         
-
         return dataservice.getPageDetailForEmployee(vm.loggedInUsername, vm).then(function () {
             console.log("page details retrieved");
 
