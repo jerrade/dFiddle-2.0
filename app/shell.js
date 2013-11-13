@@ -82,4 +82,15 @@
             .buildNavigationModel()
             .activate();
     }
+
+    function getUsernameFromWindowLocation() {
+            var username;
+
+            if (window.location.hash.indexOf('/') > -1)
+                username = window.location.hash.substr(window.location.hash.indexOf('#') + 1, window.location.hash.indexOf('/') - 1);
+            else
+                username = window.location.hash.substr(window.location.hash.indexOf('#') + 1);
+
+            return username;
+        }
 });
