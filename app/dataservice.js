@@ -55,9 +55,7 @@ define(['durandal/system', 'models/model'], function (system, model) {
         }
     };
 
-    var getPageDetailForEmployee = function (username, detailObservable) {
-        //dashboardObservable.hourlyUnsubmitted = ko.observableArray();        
-
+    var getPageDetailForEmployee = function (username, detailObservable) {      
         var options = {
             url: '/api/timesheetapi/pagedetail?username=' + username,
             type: 'GET',

@@ -43,13 +43,7 @@
             if (params.config.route == ':username') {
                 return params.fragment + '/dashboard';
             }
-            /* The login view will set a cookie with the hash part of the route. */
-            var hash = $.cookie('hash');
-            if (hash != null) {
-                $.removeCookie('hash', { path: '/' });
-                $.removeCookie('username', { path: '/' });
-                return hash;
-            }
+            
             return true;
         };
 
@@ -84,13 +78,22 @@
     }
 
     function getUsernameFromWindowLocation() {
-            var username;
+        var username;
 
-            if (window.location.hash.indexOf('/') > -1)
-                username = window.location.hash.substr(window.location.hash.indexOf('#') + 1, window.location.hash.indexOf('/') - 1);
-            else
-                username = window.location.hash.substr(window.location.hash.indexOf('#') + 1);
+        if (window.location.hash.indexOf('/') > -1)
+            username = window.location.hash.substr(window.location.hash.indexOf('#') + 1, window.location.hash.indexOf('/') - 1);
+        else
+            username = window.location.hash.substr(window.location.hash.indexOf('#') + 1);
 
-            return username;
+        return username;
+    }
+
+    $.mockjax({
+        url: '/api/timesheetapi/pagedetail?username=test',
+        responseTime: 750,
+        responseText: {
+            status: 'success',
+            fortune: 'Are you a turtle?'
         }
+    });
 });
