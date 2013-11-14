@@ -39,7 +39,10 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         if (vm.impersonateUsername == undefined)
             vm.impersonateUsername = getUsernameFromWindowLocation();
         
-        return dataservice.getPageDetailForEmployee(vm.loggedInUsername, vm).then(function () {
+        // Create a deferred to block activation until you've processed the ajax request
+        var deferred = $.Deferred();
+
+        dataservice.getPageDetailForEmployee(vm.loggedInUsername, vm).then(function () {
             console.log("Page details retrieved");
 
             ko.utils.arrayForEach(vm.impersonableEmployees(), function (item) {
@@ -56,7 +59,12 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
                     router.navigate(newValue.Username);
                 });
             });
+
+            // Request is processed; activation may proceed.
+            deferred.resolve();
         });
+
+        return deferred.promise();
     }
 
     function getUsernameFromWindowLocation() {
