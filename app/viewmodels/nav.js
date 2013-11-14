@@ -17,6 +17,8 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         deferEvaluation: true
     });
 
+    var hasEmployee = $.Deferred();
+
     var vm = {
         activate: activate,
         router: router,
@@ -27,10 +29,16 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         loggedInUsername: $('#LoggedInUsername').val(),
         impersonateUsername: undefined,
         impersonableEmployees: ko.observableArray(),
+        hasEmployee: hasEmployee.promise(),
         canImpersonate: ko.observable(),
         selectedImpersonateEmployee: ko.observable(),
         includeInactiveEmployees: ko.observable(false)
     };
+
+    vm.selectedImpersonateEmployee.subscribe(function(employee) {
+        if (!!employee)
+            hasEmployee.resolve(employee);
+    });
 
     return vm;
 
