@@ -34,7 +34,6 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
 
     return vm;
 
-    //#region Internal Methods
     function activate(context) {
         console.log('Nav View Activated');
         if (vm.impersonateUsername == undefined)
@@ -70,5 +69,4 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
 
         return username;
     }
-    //#endregion
 });
