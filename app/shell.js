@@ -34,6 +34,11 @@
             selectedImpersonateEmployee: ko.observable(),
             includeInactiveEmployees: ko.observable(false)
         };
+
+    // gerrod: Convenience property for binding
+    shell.hasEmployee = ko.computed(function() {
+        return !!shell.selectedImpersonateEmployee();
+    })
         
     return shell;
 
@@ -56,6 +61,7 @@
         /* Need to set the impersonateUsername before getting the page details for when a user
         enters a url with a username that isn't their own.  I hate having to extract the username
         from window.location, but there doesn't seem to be any way to access it via the router object.  */
+
         if(shell.impersonateUsername == undefined)
             shell.impersonateUsername = getUsernameFromWindowLocation();
 
@@ -69,13 +75,25 @@
                 { route: ':username/myhourly/:date', moduleId: 'myhourly', title: 'My Hourly Timesheet', nav: false }
         ];
 
-        return router.makeRelative({ moduleId: 'viewmodels' })
-            .map(routes)
-            .buildNavigationModel()
-            .activate();
+        // gerrod: OK, your problem is actually here. Since you're telling the router about your routes, it's going to ACTIVATE
+        // the dashboard VM since that's what the route resolves (this has nothing to do with the router binding, though). You
+        // can only defer this from happening in one of two ways - 1) Don't tell the router about the routes until your employee
+        // is loaded (which is what I'm doing here), and/or 2) blocking your activate methods until the employee is loaded (which)
+        // is what I'm doing in the dashboard's activate method. It's a double-whammy solution.
+        return $.Deferred(function(deferred) {
+            nav.hasEmployee.done(function() {
+                router.makeRelative({ moduleId: 'viewmodels' })
+                    .map(routes)
+                    .buildNavigationModel();
+
+                $.when(router.activate()).then(deferred.resolve, deferred.reject);
+            });
+        }).promise();
     }
 
     function getUsernameFromWindowLocation() {
+        // gerrod: You can pull the activeRoute and activeInstruction from the router - not sure if that will help you... ??
+
         var username;
 
         if (window.location.hash.indexOf('/') > -1)

@@ -17,6 +17,8 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         deferEvaluation: true
     });
 
+    var hasEmployee = $.Deferred();
+
     var vm = {
         activate: activate,
         router: router,
@@ -27,10 +29,16 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         loggedInUsername: $('#LoggedInUsername').val(),
         impersonateUsername: undefined,
         impersonableEmployees: ko.observableArray(),
+        hasEmployee: hasEmployee.promise(),
         canImpersonate: ko.observable(),
         selectedImpersonateEmployee: ko.observable(),
         includeInactiveEmployees: ko.observable(false)
     };
+
+    vm.selectedImpersonateEmployee.subscribe(function(employee) {
+        if (!!employee)
+            hasEmployee.resolve(employee);
+    });
 
     return vm;
 
@@ -39,7 +47,9 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
         if (vm.impersonateUsername == undefined)
             vm.impersonateUsername = getUsernameFromWindowLocation();
         
+        // Create a deferred to block activation until you've processed the ajax request
         var deferred = $.Deferred();
+
         dataservice.getPageDetailForEmployee(vm.loggedInUsername, vm).then(function () {
             console.log("Page details retrieved");
 
@@ -57,8 +67,11 @@ define(['knockout', 'plugins/router', 'dataservice'], function (ko, router, data
                     router.navigate(newValue.Username);
                 });
             });
+
+            // Request is processed; activation may proceed.
             deferred.resolve();
         });
+
         return deferred.promise();
     }
 
